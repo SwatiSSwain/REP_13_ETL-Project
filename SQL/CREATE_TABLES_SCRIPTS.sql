@@ -1,0 +1,32 @@
+﻿--COMMUNITY
+DROP TABLE IF EXISTS COMMUNITY CASCADE;
+CREATE TABLE COMMUNITY (
+    community_id INT   NOT NULL,
+    name VARCHAR(50)   NOT NULL,
+    CONSTRAINT pk_COMMUNITY PRIMARY KEY (
+        community_id
+     ),
+    CONSTRAINT uc_COMMUNITY_name UNIQUE (
+        name
+    )
+);
+
+--NEIGHBORHOOD
+DROP TABLE IF EXISTS NEIGHBORHOOD CASCADE;
+CREATE TABLE NEIGHBORHOOD (
+    neighborhood_id INT   NOT NULL,
+    name VARCHAR(50)   NOT NULL,
+    community_id INT   NOT NULL,
+    CONSTRAINT pk_NEIGHBORHOOD PRIMARY KEY (
+        neighborhood_id
+     ),
+    CONSTRAINT uc_NEIGHBORHOOD_name UNIQUE (
+        name
+    )
+	
+);
+
+
+--Foreign Keys
+ALTER TABLE NEIGHBORHOOD ADD CONSTRAINT fk_NEIGHBORHOOD_community_id FOREIGN KEY(community_id)
+REFERENCES COMMUNITY (community_id);

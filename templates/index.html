@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Minneapolis Crime</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="jumbotron text-center">
+      <h1>Minneapolis Demographics and Crime<hr></h1>
+      <p><a class="btn btn-primary btn-lg" href="/" role="button">Home</a></p>
+    </div>
+
+    <!-- MLPS Crime -->
+  <!--Adding cointainer for Data & Visualization-->
+  <div class="container-fluid  p-5"  >
+    <div class="row" class="mx-auto">
+
+      <!--First Column in this Row-->
+      <div class="col-md-8 mb-3">
+        <div class="box div-box">       
+        <h5 class="text-primary font-weight-bold">Minneapolis Demographics & Household Income</h5>
+        <hr class="my-4">        
+          <div>
+            
+          </div> 
+          <h5 class="text-primary font-weight-bold">Minneapolis Crime Stats</h5>
+        
+        <!--End of first box-->
+        </div>
+
+      <!--End of first column-->
+      </div> 
+
+    <!--Second Column in this Row-->
+      <div class="col-md-4">
+        <div class="box div-box">  
+        <h5 class="text-primary font-weight-bold"><i class='fas fa-chart-line' style='color:rgb(28, 64, 224)'></i> Crime in your Neighborhood</h5>
+        <hr class="my-4">    
+          <div class="row" class="mx-auto" >
+           
+          
+          <form name="neighborhood" action="{{ url_for('results') }}" method="POST">
+
+            <select name="neighborhood" method="GET" action="/">
+              <option value="{{neighborhood[0]}}" selected>{{neighborhood[0]}}</option>
+              {% for n in neighborhood[1:] %}
+                <option value="{{n}}">{{n}}</option>
+              {% endfor %}
+
+            </select>
+            <button type="Submit">Search</button>
+            </form>
+
+          </div>
+        
+        <!--End of second box-->
+        </div>
+      <!--End of second column--> 
+      </div>
+    
+    <!--End of row-->
+    </div>
+  
+  <!--End of container-->
+  </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+</body>
+
+</html>
+
