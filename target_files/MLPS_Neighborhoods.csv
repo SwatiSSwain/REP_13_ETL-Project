@@ -30,10 +30,10 @@ neighborhood_id,name,community_id
 29,Standish,9
 30,Whittier,9
 31,Bryn Mawr,1
-32,Carag,1
-33,Cedar-Isles-Dean,1
+32,South Uptown,1
+33,Cedar - Isles - Dean,1
 34,East Isles,1
-35,Ecco,1
+35,ECCO,1
 36,Kenwood,1
 37,Lowry Hill,1
 38,Lowry Hill East,1
@@ -42,17 +42,17 @@ neighborhood_id,name,community_id
 41,Cleveland,2
 42,Folwell,2
 43,Humboldt Indust Area,2
-44,Lind-Bohanon,2
+44,Lind - Bohanon,2
 45,Mckinley,2
 46,Shingle Creek,2
 47,Victory,2
-48,Webber-Camden,2
-49,Cedar Rside/West Bank,11
+48,Webber - Camden,2
+49,Cedar Riverside,11
 50,Como,11
-51,Marcy-Holmes,11
+51,Marcy Holmes,11
 52,Mid City Industrial Ar,11
 53,Nicollet Is/East Bank,11
-54,Prospect Pk/E River Rd,11
+54,Prospect Park - East River Road,11
 55,University,11
 56,Cooper,4
 57,Hiawatha,4
@@ -74,8 +74,8 @@ neighborhood_id,name,community_id
 73,Downtown West,3
 74,Elliot Park,3
 75,Loring Park,3
-76,Northloop,3
-77,Stevens Sq/Loring Hgts,3
+76,North Loop,3
+77,Steven's Square - Loring Heights,3
 78,East Phillips,8
 79,Midtown Phillips,8
 80,Phillips West,8
@@ -83,6 +83,6 @@ neighborhood_id,name,community_id
 82,Harrison,5
 83,Hawthorne,5
 84,Jordan,5
-85,Near North,5
-86,Sumner-Glenwood,5
-87,Willard-Hay,5
+85,Near - North,5
+86,Sumner - Glenwood,5
+87,Willard - Hay,5
