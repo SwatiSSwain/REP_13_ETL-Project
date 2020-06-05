@@ -1,0 +1,102 @@
+COMMUNITY
+--
+community_id INT PK
+name UNIQUE VARCHAR(50)
+
+
+NEIGHBORHOOD
+--
+neighborhood_id INT PK
+name UNIQUE VARCHAR(50)
+community_id INT FK - COMMUNITY.community_id
+    
+
+HOUSEHOLD_INCOME_BY_NEIGHBORHOOD 
+-- 
+household_income_by_neighborhood_id INT  PK
+neighborhood_id INT UNIQUE FK - NEIGHBORHOOD.neighborhood_id
+incomeLess35000_count INT
+incomeLess35000_percent DECIMAL(10,2)
+incomeLess35to49_count INT
+incomeLess35to49_percent DECIMAL(10,2)
+incomeLess50to74_count INT
+incomeLess50to74_percent DECIMAL(10,2)
+incomeLess75to99_count INT
+incomeLess75to99_percent DECIMAL(10,2)
+income100Plus_count INT
+income100Plus_percent DECIMAL(10,2)
+median_Income_Total DECIMAL(10,2)
+
+HOUSEHOLD_INCOME_BY_COMMUNITY
+--
+household_income_by_community_id INT  PK
+community_id INT UNIQUE FK - COMMUNITY.community_id
+incomeLess35000_count INT
+incomeLess35000_percent DECIMAL(10,2)
+incomeLess35to49_count INT
+incomeLess35to49_percent DECIMAL(10,2)
+incomeLess50to74_count INT
+incomeLess50to74_percent DECIMAL(10,2)
+incomeLess75to99_count INT
+incomeLess75to99_percent DECIMAL(10,2)
+income100Plus_count INT
+income100Plus_percent DECIMAL(10,2)
+median_Income_Total DECIMAL(10,2)
+
+RACE_BY_NEIGHBORHOOD 
+-- 
+race_by_neighborhood_id SERIAL  PK
+neighborhood_id INT UNIQUE FK - NEIGHBORHOOD.neighborhood_id
+total_cnt DECIMAL(10,2)		
+white_pct DECIMAL(10,5)	
+black_pct DECIMAL(10,5)		
+native_pct DECIMAL(10,5)		
+asian_pct DECIMAL(10,5)		
+other_pct DECIMAL(10,5)		
+two_or_more_pct DECIMAL(10,5)	
+hispanic_pct DECIMAL(10,5)	
+of_color_pct DECIMAL(10,5)
+
+RACE_BY_COMMUNITY
+-- 
+race_by_community_id SERIAL PK
+community_id INT UNIQUE FK - COMMUNITY.community_id
+total_cnt DECIMAL(10,2)	
+white_pct DECIMAL(10,5)	
+black_pct DECIMAL(10,5)		
+native_pct DECIMAL(10,5)		
+asian_pct DECIMAL(10,5)		
+other_pct DECIMAL(10,5)		
+two_or_more_pct DECIMAL(10,5)	
+hispanic_pct DECIMAL(10,5)	
+of_color_pct DECIMAL(10,5)
+
+POLICE_USE_OF_FORCE
+--
+police_use_of_force_id INT PK   
+response_date TIMESTAMP   
+case_number UNIQUE VARCHAR(50)   
+problem VARCHAR(100)   
+subject_race VARCHAR(50)   
+subject_sex VARCHAR(50)   
+subject_age INT  
+subject_role VARCHAR(50)   
+primary_offense VARCHAR(50)   
+type_of_resistance VARCHAR(50)   
+police_use_of_force_type VARCHAR(50)   
+force_type_action VARCHAR(50)   
+subject_injury VARCHAR(50)   
+neighborhood_id INT FK >- NEIGHBORHOOD.neighborhood_id 
+neighborhood VARCHAR(50)   
+precinct VARCHAR(10)
+
+POLICE_INCIDENT
+--
+police_incident_id INT PK
+casenumber VARCHAR(50)
+reporteddate TIMESTAMP
+offense VARCHAR(100)
+neighborhood VARCHAR(100)
+incident_id INT UNIQUE
+neighborhood_id INT FK >- NEIGHBORHOOD.neighborhood_id
+community_id INT FK >- COMMUNITY.community_id
