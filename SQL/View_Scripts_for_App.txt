@@ -1,0 +1,262 @@
+DROP VIEW vw_minneapolis_stats;
+
+CREATE VIEW vw_minneapolis_stats
+AS
+SELECT CAST(EXTRACT(YEAR from p.reporteddate) AS INT) AS incident_year
+     , TO_CHAR(COUNT(p.casenumber), 'FM9,999,999') cases_count
+	 , TO_CHAR(pf.puf_case_number , 'FM9,999,999') as police_use_of_force_pct
+	 , vpf.pct_white as pct_white_use_of_force
+	 , vpf.pct_of_color as pct_of_color_use_of_force
+	 , ROUND((AVG(rc.white_pct))*100 ) AS white_pct
+	 , 100-ROUND((AVG(rc.white_pct))*100 ) AS of_color_pct
+	 , TO_CHAR(ROUND(AVG(ic.median_income_total),2) , 'FM9,999,999.99') AS median_income
+FROM community c
+JOIN neighborhood n 
+ON n.community_id = c.community_id
+JOIN race_by_community rc
+ON rc.community_id = c.community_id
+JOIN household_income_by_community ic 
+ON ic.community_id = c.community_id
+JOIN police_incident p
+ON p.neighborhood_id = n.neighborhood_id
+JOIN (
+SELECT EXTRACT(YEAR from response_date) response_year, 
+COUNT(case_number) puf_case_number
+FROM police_use_of_force
+WHERE EXTRACT(YEAR from response_date)>=2015
+GROUP BY EXTRACT(YEAR from response_date)
+) pf
+ON EXTRACT(YEAR from p.reporteddate) = pf.response_year
+JOIN vw_police_use_of_force_by_race vpf
+ON vpf.response_year = pf.response_year
+GROUP BY 
+	  EXTRACT(YEAR from p.reporteddate)
+	, pf.puf_case_number
+	, vpf.pct_white
+	, vpf.pct_of_color
+	;
+
+---------------------------
+
+DROP VIEW vw_mls_neighborhood_stats;
+
+CREATE VIEW vw_mls_neighborhood_stats
+AS
+SELECT CAST(EXTRACT(YEAR from p.reporteddate) AS INT) AS incident_year
+     , n.name AS neighborhood_name
+     , TO_CHAR(COUNT(p.casenumber), 'FM9,999,999') cases_count
+	 , TO_CHAR(pf.total_cases, 'FM9,999,999') as police_use_of_force_cnt
+	 , pf.pct_white as pct_white_use_of_force
+	 , pf.pct_of_color as pct_of_color_use_of_force
+	 , ROUND((COALESCE(rn.white_pct,rc.white_pct) ) * 100) AS white_pct
+	 , 100-ROUND((COALESCE(rn.white_pct,rc.white_pct) ) * 100) AS of_color_pct
+	 , TO_CHAR(CAST(COALESCE(hin.median_income_total,ic.median_income_total) AS DECIMAL(10,2)), 'FM9,999,999') AS median_income
+	 , CASE WHEN COALESCE(hin.median_income_total,ic.median_income_total) < 35000 THEN 'Lowest Income'
+	        WHEN COALESCE(hin.median_income_total,ic.median_income_total) BETWEEN 35000 AND 49999 THEN 'Lower Middle Income'
+			WHEN COALESCE(hin.median_income_total,ic.median_income_total) BETWEEN 50000 AND 74999 THEN 'Middle Income'
+			WHEN COALESCE(hin.median_income_total,ic.median_income_total) BETWEEN 75000 AND 99999 THEN 'Upper Middle Income'
+			ELSE 'Higher-Income'
+			END AS income_group
+FROM community c
+JOIN neighborhood n 
+ON n.community_id = c.community_id
+JOIN police_incident p
+ON p.neighborhood_id = n.neighborhood_id
+LEFT JOIN race_by_neighborhood rn
+ON rn.neighborhood_id = n.neighborhood_id
+LEFT JOIN race_by_community rc
+ON rc.community_id = c.community_id
+LEFT JOIN household_income_by_neighborhood hin
+ON hin.neighborhood_id = n.neighborhood_id
+LEFT JOIN household_income_by_community ic 
+ON ic.community_id = c.community_id
+LEFT JOIN (
+SELECT response_year
+ , neighborhood_id
+ , total_cases
+ , pct_white
+ , pct_of_color
+FROM vw_police_use_of_force_by_race_nbd
+WHERE response_year>=2015
+) pf
+ON EXTRACT(YEAR from p.reporteddate) = pf.response_year
+and pf.neighborhood_id = n.neighborhood_id
+GROUP BY EXTRACT(YEAR from p.reporteddate)
+		, n.name
+		, pf.total_cases
+		, pf.pct_white
+		, pf.pct_of_color
+		, ROUND((COALESCE(rn.white_pct,rc.white_pct) ) * 100)
+	 	, 100-ROUND((COALESCE(rn.white_pct,rc.white_pct) ) * 100) 
+	 	, COALESCE(hin.median_income_total,ic.median_income_total)
+		;
+
+
+
+--------------------------------------------
+
+CREATE VIEW vw_mls_community_stats
+AS
+SELECT EXTRACT(YEAR from p.reporteddate) AS incident_year
+     , c.name AS community_name
+     , COUNT(p.casenumber) cases_count
+	 , round((cast(puf_case_number as decimal(10,2))/cast(COUNT(p.casenumber) as decimal(10,2))) * 100,2) as police_use_of_force_pct
+	 , ROUND(rc.white_pct * 100) AS white_pct
+	 , 100-ROUND(rc.white_pct * 100) AS of_color_pct
+	 , CAST(ic.median_income_total AS INT) AS median_income
+	 , CASE WHEN ic.median_income_total < 35000 THEN 'Lowest Income'
+	        WHEN ic.median_income_total BETWEEN 35000 AND 49999 THEN 'Lower Middle Income'
+			WHEN ic.median_income_total BETWEEN 50000 AND 74999 THEN 'Middle Income'
+			WHEN ic.median_income_total BETWEEN 75000 AND 99999 THEN 'Upper Middle Income'
+			ELSE 'Higher-Income'
+			END AS income_group
+FROM community c
+JOIN neighborhood n 
+ON n.community_id = c.community_id
+JOIN race_by_community rc
+ON rc.community_id = c.community_id
+JOIN household_income_by_community ic 
+ON ic.community_id = c.community_id
+JOIN police_incident p
+ON p.neighborhood_id = n.neighborhood_id
+LEFT JOIN (
+SELECT EXTRACT(YEAR from response_date) response_year, 
+COUNT(case_number) puf_case_number,
+community_id
+FROM police_use_of_force pf1
+	join neighborhood n1
+	on pf1.neighborhood_id = n1.neighborhood_id
+WHERE EXTRACT(YEAR from response_date)>=2015
+GROUP BY EXTRACT(YEAR from response_date)
+	, n1.community_id
+) pf
+ON EXTRACT(YEAR from p.reporteddate) = pf.response_year
+and pf.community_id = c.community_id
+GROUP BY EXTRACT(YEAR from p.reporteddate)
+		, c.name
+		, pf.puf_case_number
+		, ROUND(rc.white_pct * 100)
+	    , 100-ROUND(rc.white_pct * 100)
+	    , ic.median_income_total
+
+
+--------------------
+
+CREATE VIEW vw_police_use_of_force_by_race
+AS
+SELECT response_year
+ , ROUND(SUM(total_cases)) AS total_cases
+ , ROUND((SUM(race_white)/SUM(total_cases))*100) AS pct_white
+ , ROUND((SUM(race_of_color)/SUM(total_cases))*100)  AS pct_of_color
+ , ROUND((SUM(race_unknown)/SUM(total_cases))*100) AS pct_race_unknown 
+ FROM (
+select  EXTRACT(YEAR FROM response_date) response_year,
+		CASE WHEN subject_race = 'White' THEN CAST(COUNT(case_number) AS DECIMAL(10,2)) ELSE 0 END  as race_white ,
+CASE WHEN subject_race IN ('Black', 'Other / Mixed Race', 'Pacific Islander','Native American', 'Asian') 
+     THEN CAST(COUNT(case_number) AS DECIMAL(10,2)) ELSE 0 END as race_of_color ,
+CASE WHEN subject_race IS NULL OR subject_race IN ('Unknown', 'not recorded') 
+	 THEN CAST(COUNT(case_number) AS DECIMAL(10,2)) ELSE 0 END as race_unknown 
+		, CAST(COUNT(case_number) AS DECIMAL(10,2)) AS total_cases
+from police_use_of_force
+where EXTRACT(YEAR FROM response_date) >=2012
+GROUP BY 
+EXTRACT(YEAR FROM response_date),
+subject_race
+	 ) Z
+	 GROUP BY response_year
+	 
+------------------------------
+--vw_police_use_of_force_by_race_nbd
+
+CREATE VIEW vw_police_use_of_force_by_race_nbd
+AS
+SELECT CAST(response_year AS INT) AS response_year
+ , name AS neighborhood
+ , neighborhood_id
+ , ROUND(SUM(total_cases)) AS total_cases
+ , ROUND((SUM(race_white)/SUM(total_cases))*100) AS pct_white
+ , ROUND((SUM(race_of_color)/SUM(total_cases))*100)  AS pct_of_color
+ , ROUND((SUM(race_unknown)/SUM(total_cases))*100) AS pct_race_unknown 
+ FROM (
+select  EXTRACT(YEAR FROM response_date) response_year,
+		CASE WHEN subject_race = 'White' THEN CAST(COUNT(case_number) AS DECIMAL(10,2)) ELSE 0 END  as race_white ,
+CASE WHEN subject_race IN ('Black', 'Other / Mixed Race', 'Pacific Islander','Native American', 'Asian') 
+     THEN CAST(COUNT(case_number) AS DECIMAL(10,2)) ELSE 0 END as race_of_color ,
+CASE WHEN subject_race IS NULL OR subject_race IN ('Unknown', 'not recorded') 
+	 THEN CAST(COUNT(case_number) AS DECIMAL(10,2)) ELSE 0 END as race_unknown 
+		, CAST(COUNT(case_number) AS DECIMAL(10,2)) AS total_cases
+,n.name
+,p.neighborhood_id
+from police_use_of_force p
+JOIN neighborhood n
+ON p.neighborhood_id = n.neighborhood_id 
+where EXTRACT(YEAR FROM response_date) >=2012
+GROUP BY 
+EXTRACT(YEAR FROM response_date),
+subject_race,
+n.name,
+p.neighborhood_id
+	 ) Z
+	 GROUP BY response_year
+	 ,name
+	 , neighborhood_id
+
+--------------------------------------
+
+DROP VIEW vw_police_use_of_force_summary;
+
+CREATE VIEW vw_police_use_of_force_summary
+AS
+SELECT 
+   Z.name AS neighborhood
+ , Z.neighborhood_id
+ , TO_CHAR(ROUND(SUM(total_cases)) , 'FM9,999,999') AS total_cases
+ , ROUND((SUM(race_white)/SUM(total_cases))*100) AS pct_white
+ , ROUND((SUM(race_of_color)/SUM(total_cases))*100)  AS pct_of_color
+ , ROUND((SUM(race_unknown)/SUM(total_cases))*100) AS pct_race_unknown 
+ , SUM(total_cases) AS total_cases_int
+ , ROUND((COALESCE(rn.white_pct,rc.white_pct) ) * 100) AS demo_white_pct
+ , 100-ROUND((COALESCE(rn.white_pct,rc.white_pct) ) * 100) AS demo_of_color_pct
+ , TO_CHAR(CAST(COALESCE(hin.median_income_total,ic.median_income_total) AS DECIMAL(10,2)), 'FM9,999,999') AS median_income
+ , CASE WHEN COALESCE(hin.median_income_total,ic.median_income_total) < 35000 THEN 'Lowest Income'
+	        WHEN COALESCE(hin.median_income_total,ic.median_income_total) BETWEEN 35000 AND 49999 THEN 'Lower Middle Income'
+			WHEN COALESCE(hin.median_income_total,ic.median_income_total) BETWEEN 50000 AND 74999 THEN 'Middle Income'
+			WHEN COALESCE(hin.median_income_total,ic.median_income_total) BETWEEN 75000 AND 99999 THEN 'Upper Middle Income'
+			ELSE 'Higher-Income'
+			END AS income_group
+ FROM (
+SELECT  
+	 n.name
+	,p.neighborhood_id
+	,CASE WHEN subject_race = 'White' THEN CAST(COUNT(case_number) AS DECIMAL(10,2)) ELSE 0 END  as race_white 
+	,CASE WHEN subject_race IN ('Black', 'Other / Mixed Race', 'Pacific Islander','Native American', 'Asian') 
+     	  THEN CAST(COUNT(case_number) AS DECIMAL(10,2)) ELSE 0 END as race_of_color 
+	,CASE WHEN subject_race IS NULL OR subject_race IN ('Unknown', 'not recorded') 
+	 	  THEN CAST(COUNT(case_number) AS DECIMAL(10,2)) ELSE 0 END as race_unknown 
+	,CAST(COUNT(case_number) AS DECIMAL(10,2)) AS total_cases
+FROM police_use_of_force p
+JOIN neighborhood n
+ON p.neighborhood_id = n.neighborhood_id 
+WHERE EXTRACT(YEAR FROM response_date) >=2012
+GROUP BY
+	subject_race,
+	n.name,
+	p.neighborhood_id
+	 ) Z
+LEFT JOIN neighborhood n
+ON Z.neighborhood_id = n.neighborhood_id
+LEFT JOIN race_by_neighborhood rn
+ON rn.neighborhood_id = n.neighborhood_id
+LEFT JOIN race_by_community rc
+ON rc.community_id = n.community_id
+LEFT JOIN household_income_by_neighborhood hin
+ON hin.neighborhood_id = n.neighborhood_id
+LEFT JOIN household_income_by_community ic 
+ON ic.community_id = n.community_id
+	 GROUP BY 
+	   Z.name
+	 , Z.neighborhood_id
+	 , ROUND((COALESCE(rn.white_pct,rc.white_pct) ) * 100)
+	 , 100-ROUND((COALESCE(rn.white_pct,rc.white_pct) ) * 100) 
+	 , COALESCE(hin.median_income_total,ic.median_income_total)
+	 ;

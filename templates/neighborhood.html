@@ -18,17 +18,17 @@
 
     <!--Adding jumotron to display page page & Home button-->
     <div class="jumbotron text-center jumbotron-fluid">
-      <h2>Minneapolis Crime Rates & Demographics<hr></h2>
+      <h2>{{nbr}}<hr></h2>
       <p><a class="btn btn-primary btn-lg" href="/" role="button">Home</a></p>
     </div>
-  
-  <!-- MLPS Crime Stats-->
+
+    <!-- MLPS Crime -->
   <!--Adding cointainer-->
-  <div class="container-fluid  p-5 ">
+  <div class="container-fluid  p-5"  >
     <div class="row" class="mx-auto">
 
       <!--First Column in this Row-->
-      <div class="col-md-10 mb-3">
+      <div class="col-md-12">
         <div class="box div-box">       
         <h5 class="font-weight-bold">Crime Rates and Demographics Stats</h5>
         <hr class="my-4">        
@@ -36,7 +36,7 @@
             
           </div> 
         
-          <!--1st table summarizing Minneapolis crime & demographics stats-->
+          <!--Table summarizing selected MLS neighborhood crime & demographics stats-->
           <div class="table-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12">
            
             <table class="table table-striped">
@@ -50,7 +50,7 @@
             </tr>
               
               <tbody>
-                {% for item in mls %}
+                {% for item in neighborhood_data %}
                 <TR>
                    
                    <TD >{{item[0]}}</TD>
@@ -61,82 +61,19 @@
                    <TD >{{item[5]}}</TD>
                    <TD >{{item[6]}}</TD>
                    <TD >{{item[7]}}</TD>
+                   <TD >{{item[8]}}</TD>
                 </TR>
                 {% endfor %}
               </tbody>
               </table>
         
             </div>
-            
-            <div class="box div-box">
-            <br><h5 class="font-weight-bold">Top 5 neighborhoods with most Use of Force (Year >= 2012)</h5>
-            <hr class="my-4">        
-            
-              <!--2nd table summarizing top 5 neighborhoods with most Use of Force (Year >= 2012)-->
-              <div class="table-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12">
-               
-                <table class="table table-striped">
-                  
-                  <thead class="thead-light">
-                    <tr style="text-align: left;">
-                   {% for column in columns_data1 %}
-                      <th>{{ column }}</th>
-                   {% endfor %}
-                  </thead>
-                </tr>
-                  
-                  <tbody>
-                    {% for item in use_force %}
-                    <TR>
-                       
-                       <TD >{{item[0]}}</TD>
-                       <TD >{{item[1]}}</TD>
-                       <TD >{{item[2]}}</TD>
-                       <TD >{{item[3]}}</TD>
-                       <TD >{{item[4]}}</TD>
-                       <TD >{{item[5]}}</TD>
-                       <TD >{{item[6]}}</TD>
-                       <TD >{{item[7]}}</TD>
-                       <TD >{{item[8]}}</TD>
-                    </TR>
-                    {% endfor %}
-                  </tbody>
-                  </table>
-            
-                </div>
-              </div>
-
         <!--End of first box-->
         </div>
 
       <!--End of first column-->
       </div> 
 
-    <!--Create a dropdown menu for user to select a neighborhood & return form input to the app-->
-      <div class="col-md-2">
-        <div class="box div-box">  
-        <h5 class="font-weight-bold">Neighborhood Stats</h5>
-        <hr class="my-4">    
-          <div class="row" class="mx-auto" >
-           
-          <form name="neighborhood" action="/" method="POST">
-
-            <select name="neighborhood" method="GET" action="/">
-              <option value="{{neighborhood[0].name}}" selected>{{neighborhood[0].name}}</option>
-              {% for n in neighborhood[1:]: %}
-                <option value="{{n.name}}">{{n.name}}</option>
-              {% endfor %}
-
-            </select>
-            <button type="Submit">Search</button>
-            </form>
-
-            </div> 
-        <!--End of second box-->
-        </div>
-      <!--End of second column--> 
-      </div> 
-     
     <!--End of row-->
     </div>
   
