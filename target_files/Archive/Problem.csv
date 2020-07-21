@@ -1,0 +1,110 @@
+subject_race,type_of_resistance,police_incidents_count
+Asian,Assaulted Officer,64
+Asian,Assaulted Officer                                                              ,8
+Asian,Assaulting Police Horse,1
+Asian,Commission of Crime,96
+Asian,Commission of a Crime                                                          ,2
+Asian,Fled in Vehicle,20
+Asian,Fled on Foot,69
+Asian,Fled on Foot                                                                   ,1
+Asian,Other                                                                          ,7
+Asian,Tensed,60
+Asian,Tensed                                                                         ,8
+Asian,Unspecified,30
+Asian,Verbal Non-Compliance,41
+Asian,Verbal Non-Compliance                                                          ,11
+Black,Assaulted Officer,1491
+Black,Assaulted Officer                                                              ,251
+Black,Assaulted Police Horse                                                         ,1
+Black,Assaulting Police Horse,17
+Black,Assaulting Police K9,11
+Black,Commission of Crime,3591
+Black,Commission of a Crime                                                          ,314
+Black,Fled in Vehicle,514
+Black,Fled in a Vehicle                                                              ,54
+Black,Fled on Foot,2821
+Black,Fled on Foot                                                                   ,379
+Black,Other                                                                          ,358
+Black,Tensed,3988
+Black,Tensed                                                                         ,595
+Black,Unspecified,1368
+Black,Verbal Non-Compliance,1678
+Black,Verbal Non-Compliance                                                          ,296
+Black,commission of crime,17
+Black,tensed,7
+Black,verbal non-compliance,2
+Native American,Assaulted Officer,156
+Native American,Assaulted Officer                                                              ,17
+Native American,Commission of Crime,277
+Native American,Commission of a Crime                                                          ,17
+Native American,Fled in Vehicle,44
+Native American,Fled in a Vehicle                                                              ,1
+Native American,Fled on Foot,203
+Native American,Fled on Foot                                                                   ,38
+Native American,Other                                                                          ,53
+Native American,Tensed,378
+Native American,Tensed                                                                         ,54
+Native American,Unspecified,75
+Native American,Verbal Non-Compliance,136
+Native American,Verbal Non-Compliance                                                          ,19
+Native American,tensed,1
+Other / Mixed Race,Assaulted Officer,85
+Other / Mixed Race,Assaulting Police Horse,6
+Other / Mixed Race,Assaulting Police K9,1
+Other / Mixed Race,Commission of Crime,296
+Other / Mixed Race,Fled in Vehicle,35
+Other / Mixed Race,Fled on Foot,112
+Other / Mixed Race,TENSED,4
+Other / Mixed Race,Tensed,320
+Other / Mixed Race,Unspecified,78
+Other / Mixed Race,Verbal Non-Compliance,158
+Pacific Islander,Tensed,2
+Pacific Islander,Verbal Non-Compliance,1
+Unknown,Assaulted Officer,28
+Unknown,Assaulted Officer                                                              ,41
+Unknown,Assaulting Police K9,2
+Unknown,COMMISSION OF CRIME,1
+Unknown,Commission of Crime,88
+Unknown,Commission of a Crime                                                          ,77
+Unknown,Fled in Vehicle,7
+Unknown,Fled in a Vehicle                                                              ,7
+Unknown,Fled on Foot,6
+Unknown,Fled on Foot                                                                   ,18
+Unknown,Other                                                                          ,48
+Unknown,Tensed,81
+Unknown,Tensed                                                                         ,44
+Unknown,Unspecified,34
+Unknown,Verbal Non-Compliance,28
+Unknown,Verbal Non-Compliance                                                          ,41
+White,Assaulted Officer,833
+White,Assaulted Officer                                                              ,189
+White,Assaulting Police Horse,25
+White,Commission of Crime,1164
+White,Commission of a Crime                                                          ,92
+White,Fled in Vehicle,115
+White,Fled in a Vehicle                                                              ,22
+White,Fled on Foot,694
+White,Fled on Foot                                                                   ,107
+White,Other                                                                          ,206
+White,TENSED,3
+White,Tensed,2053
+White,Tensed                                                                         ,270
+White,Unspecified,505
+White,Verbal Non-Compliance,607
+White,Verbal Non-Compliance                                                          ,75
+White,commission of crime,3
+White,tensed,2
+not recorded,Assaulted Officer,34
+not recorded,Assaulted Officer                                                              ,7
+not recorded,Commission of Crime,59
+not recorded,Commission of a Crime                                                          ,6
+not recorded,Fled in Vehicle,1
+not recorded,Fled in a Vehicle                                                              ,1
+not recorded,Fled on Foot,13
+not recorded,Fled on Foot                                                                   ,4
+not recorded,Other                                                                          ,10
+not recorded,Tensed,60
+not recorded,Tensed                                                                         ,1
+not recorded,Unspecified,68
+not recorded,Verbal Non-Compliance,71
+not recorded,Verbal Non-Compliance                                                          ,1

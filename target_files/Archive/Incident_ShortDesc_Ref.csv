@@ -1,0 +1,80 @@
+description,offense,short
+1ST DEG DOMES ASLT            ,DASLT1  ,Domestic_Assault
+1st Deg Domes Asslt,DASLT1,Domestic_Assault
+2ND DEG DOMES ASLT            ,DASLT2  ,Domestic_Assault
+2nd Deg Domes Aslt,DASLT2,Domestic_Assault
+3RD DEG DOMES ASLT            ,DASLT3  ,Domestic_Assault
+3rd Deg Domes Aslt,DASLT3,Domestic_Assault
+ACCESS/ALTER SYSTEM/NETWORK   ,COMPUT  ,Hacking
+ARSON                         ,ARSON   ,Arson
+ARSON-1ST DEGREE              ,ARSON   ,Arson
+ASLT-GREAT BODILY HM          ,ASLT1   ,Murder_Rape_Assault
+ASLT-SGNFCNT BDLY HM          ,ASLT3   ,Murder_Rape_Assault
+ASLT4-LESS THAN SUBST HARM    ,ASLT4   ,Murder_Rape_Assault
+ASLT4-SUBST HARM OR WEAPON    ,ASLT4   ,Murder_Rape_Assault
+ASSLT W/DNGRS WEAPON          ,ASLT2   ,Murder_Rape_Assault
+AUTOMOBILE THEFT              ,AUTOTH  ,Theft
+Arson,ARSON,Arson
+Aslt-great Bodily Hm,ASLT1,Assault
+Aslt-police/emerg P,ASLT4,Assault
+Aslt-sgnfcnt Bdly Hm,ASLT3,Assault
+Asslt W/dngrs Weapon,ASLT2,Assault
+BIKE THEFT                    ,BIKETF  ,Theft
+BURGLARY OF BUSINESS          ,BURGB   ,Burglary
+BURGLARY OF DWELLING          ,BURGD   ,Burglary
+Bike Theft,BIKETF,Theft
+Burglary Of Business,BURGB,Burglary
+Burglary Of Dwelling,BURGD,Burglary
+CSC - PENETRATE WITH OBJECT   ,CSCR    ,Murder_Rape_Assault
+CSC - RAPE                    ,CSCR    ,Murder_Rape_Assault
+CSC - SODOMY                  ,CSCR    ,Murder_Rape_Assault
+Crim Sex Cond-rape,CSCR,Murder_Rape_Assault
+DISARM A POLICE OFFICER       ,DISARM  ,Disarm_Officer
+DOMESTIC ASSAULT/STRANGULATION,DASTR   ,Domestic_Assault
+Disarm a Police Officer,DISARM,Disarm_Officer
+Domestic Assault/Strangulation,DASTR,Disarm_Officer
+GAS STATION DRIV-OFF          ,NOPAY   ,Theft
+Gas Station Driv-off,NOPAY,Theft
+HACKING - THEFT OF SERVICE    ,COMPUT  ,Theft
+LOOTING                       ,LOOT    ,Looting
+Looting,LOOT,Looting
+MURDER (GENERAL)              ,MURDR   ,Murder_Rape_Assault
+MURDER - 1ST DEGREE           ,MURDR   ,Murder_Rape_Assault
+MURDER - 2ND DEGREE           ,MURDR   ,Murder_Rape_Assault
+Motor Vehicle Theft,AUTOTH,Theft
+Murder (general),MURDR,Murder_Rape_Assault
+OBS - ASLT-POLICE/EMERG P     ,ASLT4   ,Assault_Officer
+OBS - COMPUTER HACKING        ,COMPUT  ,Hacking
+OBS - PETTY THEFT             ,PETIT   ,Theft
+"OBS-CSCR - USE EXT 1, 2 OR 3  ",CSCR    ,Theft
+ON-LINE THEFT                 ,ONLTHT  ,Theft
+OTHER THEFT                   ,THEFT   ,Theft
+OTHER VEHICLE THEFT           ,MVTHFT  ,Theft
+On-line Theft,ONLTHT,Theft
+Other Theft,THEFT,Theft
+Other Vehicle Theft,MVTHFT,Theft
+POCKET-PICKING                ,POCKET  ,Theft
+Pocket-picking,POCKET,Theft
+ROBBERY OF BUSINESS           ,ROBBIZ  ,Theft
+ROBBERY OF PERSON             ,ROBPER  ,Theft
+ROBBERY PER AGG               ,ROBPAG  ,Theft
+Robbery Of Business,ROBBIZ,Theft
+Robbery Of Person,ROBPER,Theft
+Robbery Per Agg,ROBPAG,Theft
+SCRAPPING-RECYCLING THEFT     ,SCRAP   ,Theft
+SHOPLIFTING                   ,SHOPLF  ,Theft
+Scrapping-Recycling Theft,SCRAP,Theft
+Shoplifting,SHOPLF,Theft
+THEFT BY SWINDLE              ,THFTSW  ,Theft
+THEFT FROM BUILDING           ,TBLDG   ,Theft
+THEFT FROM MOTR VEHC          ,TFMV    ,Theft
+THEFT FROM PERSON SNATCH/GRAB ,TFPER   ,Theft
+THEFT-MOTR VEH PARTS          ,TMVP    ,Theft
+THEFT/COINOP DEVICE           ,COINOP  ,Theft
+Theft By Computer,COMPUT,Theft
+Theft By Swindle,THFTSW,Theft
+Theft From Building,TBLDG,Theft
+Theft From Motr Vehc,TFMV,Theft
+Theft From Person,TFPER,Theft
+Theft-motr Veh Parts,TMVP,Theft
+Theft/coinop Device,COINOP,Theft
